@@ -15,6 +15,9 @@
     <!-- <link href="css/regular.min.css" rel="stylesheet"> -->
 
     <script src="js/jquery-3.7.0.min.js"></script>
+
+    <link rel="canonical" href="https://xtotdam.github.io/mgps_js/" />
+    <link rel="manifest" href="/mgps_js/manifest.webmanifest">
 </head>
 <body>
 
@@ -307,5 +310,11 @@
     <!-- <script src="js/popper.min.js"></script> -->
     <script src="js/bootstrap.min.js"></script>
 
+
+    <script>
+        if (navigator.serviceWorker) {
+            navigator.serviceWorker.register('/mgps_js/sw.js', {scope: '/mgps_js/'})
+        }
+    </script>
 </body>
 </html>
