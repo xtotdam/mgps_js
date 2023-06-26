@@ -1,5 +1,5 @@
 var pos_info = {
-    lat: "0.000000", long: "0.000000", alt: "0.0"
+    lat: "0.000000", long: "0.000000", acc: "0.0", alt: "0.0"
 };
 
 // Helpers
@@ -32,9 +32,9 @@ function download(filename, text) {
 function update_geoinfo() {
     // $("span#timestamp").html(format_time(window.pos_info.timestamp));
     // $("span#timestamp").html(new Date(pos_info.timestamp).toLocaleTimeString());
-    $("span#lat").html(pos_info.lat.toString());
-    $("span#long").html(pos_info.long.toString());
-    $("span#pos_acc").html(format_number(pos_info.acc, 2) + ' м');
+    $("span#lat").html(pos_info.lat.toFixed(6));
+    $("span#long").html(pos_info.long.toFixed(6));
+    $("span#pos_acc").html(format_number(pos_info.acc, 1) + ' м');
 
     $("span#alt").html(format_number(pos_info.alt, 1, "div#alt") + ' м');
     $("span#alt_acc").html('<i class="fa-solid fa-plus-minus"></i> ' + format_number(pos_info.alt_acc, 1, "span#alt_acc"));
@@ -174,7 +174,7 @@ function geo_success(pos) {
 
 function geo_error(err) {
     // window.alert(`ERROR(${err.code}): ${err.message}`);
-    $('#last_error').html(`${strftime('%X')}: (${err.code}) ${err.message}`);
+    $('#last_error').html(`${new Date().toLocaleTimeString()}: (${err.code}) ${err.message}`);
 }
 
 if (navigator.geolocation) {
