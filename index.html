@@ -276,7 +276,7 @@
 
     var geo_options = {
         enableHighAccuracy: true,
-        timeout: 15000,
+        timeout: 10000,
         maximumAge: 0,
     };
 
@@ -295,10 +295,12 @@
     }
 
     function geo_error(err) {
-        console.warn(`ERROR(${err.code}): ${err.message}`);
+        window.alert(`ERROR(${err.code}): ${err.message}`);
     }
 
-    var geowatchID = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
+    if (navigator.geolocation) {
+        var geowatchID = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
+    }
 
     function time_loop() {
         update_geoinfo();
