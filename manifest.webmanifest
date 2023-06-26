@@ -6,7 +6,7 @@
     "start_url": "/mgps_js/",
     "background_color": "#ffffff",
     "theme_color": "#ffffff",
-    "display": "standalone",
+    "display": "minimal-ui",
     "icons": [
         {
             "src": "/mgps_js/favicon-512.png",
