@@ -24,12 +24,12 @@
 <body>
 
     <nav class="navbar navbar-light bg-light justify-content-center">
-        <span class="navbar-brand mb-0 p-0 h1">Mushroom GPS<sup>JS</sup> 0.4 &mdash; <span id="currtime"></span></span>
+        <span class="navbar-brand mb-0 p-0 h1">Mushroom GPS<sup>JS</sup> 0.5</span>
     </nav>
 
 
     <div class="btn-toolbar justify-content-around">
-        <div class="input-group p-0 pb-1 pe-1 m-0">
+        <div class="input-group p-0 pb-1 pe-1 m-0" data-toggle="tooltip" title="Координаты">
             <span class="input-group-text p-1"><i class="fa-solid fa-location-dot"></i></span>
             <span class="input-group-text p-1" id="lat">LAT</span>
             <span class="input-group-text p-1" id="long">LONG</span>
@@ -37,31 +37,36 @@
             <span class="input-group-text p-1" id="pos_acc">POS_ACC</span>
         </div>
 
-        <div class="input-group p-0 pb-1 pe-1 m-0" id="alt">
+        <div class="input-group p-0 pb-1 pe-1 m-0" id="alt"  data-toggle="tooltip" title="Высота">
             <span class="input-group-text p-1"><i class="fa-solid fa-mountain"></i></span>
             <span class="input-group-text p-1" id="alt">ALT</span>
-            <span class="input-group-text p-1"><i class="fa-solid fa-plus-minus"></i></span>
+            <!-- <span class="input-group-text p-1"><i class="fa-solid fa-plus-minus"></i></span> -->
             <span class="input-group-text p-1" id="alt_acc">ALT_ACC</span>
         </div>
 
-        <div class="input-group p-0 pb-1 pe-1 m-0" id="speed">
+        <!-- <div class="input-group p-0 pb-1 pe-1 m-0" id="speed" data-toggle="tooltip" title="Скорость">
             <span class="input-group-text p-1"><i class="fa-solid fa-gauge-high"></i></span>
             <span class="input-group-text p-1" id="speed">SPEED</span>
-         </div>
+         </div> -->
 
-        <div class="input-group p-0 pb-1 pe-1 m-0">
+        <div class="input-group p-0 pb-1 pe-1 m-0"  data-toggle="tooltip" title="Время получения координат">
             <span class="input-group-text p-1"><i class="fa-solid fa-clock"></i></span>
             <span class="input-group-text p-1" id="timestamp">TIME</span>
         </div>
 
-        <div class="input-group p-0 pb-1 pe-1 m-0" id="head">
+        <!-- <div class="input-group p-0 pb-1 pe-1 m-0" id="head" data-toggle="tooltip" title="Направление">
             <span class="input-group-text p-1"><i class="fa-solid fa-compass"></i></span>
             <span class="input-group-text p-1" id="head">HEADING</span>
-        </div>
+        </div> -->
 
-        <div class="input-group p-0 pb-1 pe-1 m-0">
+        <div class="input-group p-0 pb-1 pe-1 m-0"  data-toggle="tooltip" title="Давность запроса координат">
             <span class="input-group-text p-1"><i class="fa-solid fa-location-dot"></i><i class="fa-solid fa-arrows-rotate"></i></span>
             <span class="input-group-text p-1" id="refresh_time">REFRESH</span>
+        </div>
+
+        <div class="input-group p-0 pb-1 pe-1 m-0"  data-toggle="tooltip" title="Возраст координат">
+            <span class="input-group-text p-1">&delta;<i class="fa-solid fa-clock"></i></span>
+            <span class="input-group-text p-1" id="delta_time">DELTATIME</span>
         </div>
     </div>
 
@@ -100,28 +105,32 @@
 
     <div class="input-group p-1">
         <label class="input-group-text bg-warning text-light" for="IGSOther">Другое &#x1F332;</label>
-        <input type="text" class="form-control" id="found_other_name">
+        <input type="text" class="form-control" id="found_other_name" placeholder="Впиши сам">
         <button type="button" class="btn btn-outline-danger" onclick="document.getElementById('found_other_name').value='';"><i class="fa-solid fa-xmark"></i></button>
         <button type="button" class="btn btn-outline-warning" onclick="get_choice('other', $('#found_other_name').val());">Save</button>
     </div>
 
     <center>
         <textarea class="p-1" id="found_log" style="width: 98%; resize: none;" rows="13" readonly></textarea>
-        <textarea class="p-1" id="last_error" style="width: 98%; resize: none; background: #fee;" rows="1" readonly></textarea>
+        <textarea class="p-1" id="last_error" style="width: 98%; resize: none; background: #fee;" rows="1" readonly  data-toggle="tooltip" title="Последняя ошибка"></textarea>
     </center>
 
     <div class="d-flex justify-content-around p-1">
         <button type="button" class="btn btn-primary" onclick="download_json();">Save JSON</button>
         <button type="button" class="btn btn-success" onclick="download_gpx();">Save GPX</button>
-        <button type="button" class="btn btn-warning" onclick="clear_last();">Clear last</button>
-        <button type="button" class="btn btn-danger" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false">
-        Clear all
-      </button>
+        <button type="button" class="btn btn-warning" data-bs-toggle="collapse" data-bs-target="#collapseClearlast" aria-expanded="false">Clear last</button>
+        <button type="button" class="btn btn-danger" data-bs-toggle="collapse" data-bs-target="#collapseClearAll" aria-expanded="false">Clear all</button>
     </div>
 
-    <div class="collapse" id="collapseExample">
+    <div class="collapse" id="collapseClearlast">
         <div class="d-flex justify-content-center p-2">
-            <button type="button" class="btn btn-danger" onclick="clear_all();document.getElementById('collapseExample').classList.toggle('show');">Really clear all</button>
+            <button type="button" class="btn btn-warning" onclick="clear_last();document.getElementById('collapseClearlast').classList.toggle('show');">Really clear last</button>
+        </div>
+    </div>
+
+    <div class="collapse" id="collapseClearAll">
+        <div class="d-flex justify-content-center p-2">
+            <button type="button" class="btn btn-danger" onclick="clear_all();document.getElementById('collapseClearAll').classList.toggle('show');">Really clear all</button>
         </div>
     </div>
 
@@ -130,7 +139,13 @@
 
     <script type="text/javascript" src="js/mgpsjs.js"></script>
 
-    <!-- <script src="js/popper.min.js"></script> -->
+
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
 

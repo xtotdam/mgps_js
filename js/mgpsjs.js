@@ -1,11 +1,13 @@
 var pos_info = {
-    lat: "0.000000", long: "0.000000"
+    lat: "0.000000", long: "0.000000", alt: "0.0"
 };
 
 // Helpers
 function format_number(x, prec, parent_elem) {
     try {
-        return x.toFixed(prec);
+        var r = x.toFixed(prec);
+        $(parent_elem).show();
+        return r;
     } catch (error) {
         // return "&mdash;"
         $(parent_elem).hide();
@@ -35,10 +37,10 @@ function update_geoinfo() {
     $("span#pos_acc").html(format_number(pos_info.acc, 2) + ' м');
 
     $("span#alt").html(format_number(pos_info.alt, 1, "div#alt"));
-    $("span#alt_acc").html(format_number(pos_info.alt_acc, 1) + ' м');
+    $("span#alt_acc").html('<i class="fa-solid fa-plus-minus"></i>' + format_number(pos_info.alt_acc, 1, "span#alt_acc") + ' м');
 
-    $("span#head").html(format_number(pos_info.head, 0, "div#head") + '°');
-    $("span#speed").html(format_number(pos_info.speed, 1, "div#speed") + ' м/с');
+    // $("span#head").html(format_number(pos_info.head, 0, "div#head") + '°');
+    // $("span#speed").html(format_number(pos_info.speed, 1, "div#speed") + ' м/с');
 }
 
 // Update textarea
@@ -76,8 +78,8 @@ function get_choice(cat, name) {
         accuracy: pos_info.acc,
         altitude: pos_info.alt,
         altaccurary: pos_info.alt_acc,
-        heading: pos_info.head,
-        speed: pos_info.speed,
+        // heading: pos_info.head,
+        // speed: pos_info.speed,
 
         timestamp_real: date.getTime(),
         timestamp_gps: pos_info.timestamp,
@@ -166,8 +168,8 @@ function geo_success(pos) {
     pos_info.acc =       pos.coords.accuracy;
     pos_info.alt =       pos.coords.altitude;
     pos_info.alt_acc =   pos.coords.altitudeAccuracy;
-    pos_info.head =      pos.coords.heading;
-    pos_info.speed =     pos.coords.speed;
+    // pos_info.head =      pos.coords.heading;
+    // pos_info.speed =     pos.coords.speed;
 }
 
 function geo_error(err) {
@@ -185,17 +187,18 @@ function time_loop() {
         navigator.geolocation.getCurrentPosition(geo_success, geo_error, geo_options);
     }
 
-    if (geoPosition.init()) {
-        geoPosition.getCurrentPosition(geo_success, geo_error, geo_options);
-    }
+    // if (geoPosition.init()) {
+    //     geoPosition.getCurrentPosition(geo_success, geo_error, geo_options);
+    // }
 
     update_geoinfo();
 
-    $("#refresh_time").html(`${strftime('%X')}`);
+    // $("#refresh_time").html(`${strftime('%X')}`);
+    $("#refresh_time").html(((pos_info.timestamp - new Date().getTime())/1000).toFixed(2) + ' с');
 }
 
 var intervalID = setInterval(time_loop, 3000);
 
 var showtimeID = setInterval(function(){
-    $('#currtime').html(`${strftime("%X")}`);
+    $("span#delta_time").html(((pos_info.timestamp - new Date().getTime())/1000).toFixed(2) + ' с');
 }, 500);
