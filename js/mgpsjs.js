@@ -36,8 +36,8 @@ function update_geoinfo() {
     $("span#long").html(pos_info.long.toString());
     $("span#pos_acc").html(format_number(pos_info.acc, 2) + ' м');
 
-    $("span#alt").html(format_number(pos_info.alt, 1, "div#alt"));
-    $("span#alt_acc").html('<i class="fa-solid fa-plus-minus"></i> ' + format_number(pos_info.alt_acc, 1, "span#alt_acc") + ' м');
+    $("span#alt").html(format_number(pos_info.alt, 1, "div#alt") + ' м');
+    $("span#alt_acc").html('<i class="fa-solid fa-plus-minus"></i> ' + format_number(pos_info.alt_acc, 1, "span#alt_acc"));
 
     // $("span#head").html(format_number(pos_info.head, 0, "div#head") + '°');
     // $("span#speed").html(format_number(pos_info.speed, 1, "div#speed") + ' м/с');
