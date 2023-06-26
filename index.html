@@ -15,6 +15,7 @@
     <!-- <link href="css/regular.min.css" rel="stylesheet"> -->
 
     <script src="js/jquery-3.7.0.min.js"></script>
+    <script src="js/strftime.js"></script>
 
     <link rel="canonical" href="https://xtotdam.github.io/mgps_js/" />
     <link rel="manifest" href="https://xtotdam.github.io/mgps_js/manifest.webmanifest">
@@ -23,7 +24,7 @@
 <body>
 
 <nav class="navbar navbar-light bg-light justify-content-center">
-    <span class="navbar-brand mb-0 p-0 h1">Mushroom GPS<sup>JS</sup> 0.2.2</span>
+    <span class="navbar-brand mb-0 p-0 h1">Mushroom GPS<sup>JS</sup> 0.3</span>
 </nav>
 
 
@@ -100,7 +101,8 @@
 </div>
 
 <center>
-    <textarea class="p-1" id="found_log" style="width: 98%; resize: none;" rows="15" readonly></textarea>
+    <textarea class="p-1" id="found_log" style="width: 98%; resize: none;" rows="13" readonly></textarea>
+    <textarea class="p-1" id="last_error" style="width: 98%; resize: none; background: #fee;" rows="1" readonly></textarea>
 </center>
 
 <div class="d-flex justify-content-around p-1">
@@ -295,7 +297,8 @@
     }
 
     function geo_error(err) {
-        window.alert(`ERROR(${err.code}): ${err.message}`);
+        // window.alert(`ERROR(${err.code}): ${err.message}`);
+        $('#last_error').html(`${strftime('%X')}: ERROR(${err.code}): ${err.message}`);
     }
 
     if (navigator.geolocation) {
