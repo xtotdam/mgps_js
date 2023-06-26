@@ -23,299 +23,112 @@
 </head>
 <body>
 
-<nav class="navbar navbar-light bg-light justify-content-center">
-    <span class="navbar-brand mb-0 p-0 h1">Mushroom GPS<sup>JS</sup> 0.3</span>
-</nav>
+    <nav class="navbar navbar-light bg-light justify-content-center">
+        <span class="navbar-brand mb-0 p-0 h1">Mushroom GPS<sup>JS</sup> 0.4 &mdash; <span id="currtime"></span></span>
+    </nav>
 
 
-<div class="btn-toolbar ps-1 py-1 justify-content-around">
-    <div class="input-group p-0 pe-1 m-0">
-        <span class="input-group-text p-1"><i class="fa-solid fa-location-dot"></i></span>
-        <span class="input-group-text p-1" id="lat">LAT</span>
-        <span class="input-group-text p-1" id="long">LONG</span>
-        <span class="input-group-text p-1"><i class="fa-solid fa-plus-minus"></i></span>
-        <span class="input-group-text p-1" id="pos_acc">POS_ACC</span>
+    <div class="btn-toolbar justify-content-around">
+        <div class="input-group p-0 pb-1 pe-1 m-0">
+            <span class="input-group-text p-1"><i class="fa-solid fa-location-dot"></i></span>
+            <span class="input-group-text p-1" id="lat">LAT</span>
+            <span class="input-group-text p-1" id="long">LONG</span>
+            <span class="input-group-text p-1"><i class="fa-solid fa-plus-minus"></i></span>
+            <span class="input-group-text p-1" id="pos_acc">POS_ACC</span>
+        </div>
+
+        <div class="input-group p-0 pb-1 pe-1 m-0" id="alt">
+            <span class="input-group-text p-1"><i class="fa-solid fa-mountain"></i></span>
+            <span class="input-group-text p-1" id="alt">ALT</span>
+            <span class="input-group-text p-1"><i class="fa-solid fa-plus-minus"></i></span>
+            <span class="input-group-text p-1" id="alt_acc">ALT_ACC</span>
+        </div>
+
+        <div class="input-group p-0 pb-1 pe-1 m-0" id="speed">
+            <span class="input-group-text p-1"><i class="fa-solid fa-gauge-high"></i></span>
+            <span class="input-group-text p-1" id="speed">SPEED</span>
+         </div>
+
+        <div class="input-group p-0 pb-1 pe-1 m-0">
+            <span class="input-group-text p-1"><i class="fa-solid fa-clock"></i></span>
+            <span class="input-group-text p-1" id="timestamp">TIME</span>
+        </div>
+
+        <div class="input-group p-0 pb-1 pe-1 m-0" id="head">
+            <span class="input-group-text p-1"><i class="fa-solid fa-compass"></i></span>
+            <span class="input-group-text p-1" id="head">HEADING</span>
+        </div>
+
+        <div class="input-group p-0 pb-1 pe-1 m-0">
+            <span class="input-group-text p-1"><i class="fa-solid fa-location-dot"></i><i class="fa-solid fa-arrows-rotate"></i></span>
+            <span class="input-group-text p-1" id="refresh_time">REFRESH</span>
+        </div>
     </div>
 
-    <div class="input-group p-0 m-0">
-        <span class="input-group-text p-1"><i class="fa-solid fa-gauge-high"></i></span>
-        <span class="input-group-text p-1" id="speed">SPEED</span>
-     </div>
-</div>
 
-<div class="btn-toolbar ps-1 pb-1 justify-content-around">
-    <div class="input-group p-0 pe-1 m-0">
-        <span class="input-group-text p-1"><i class="fa-solid fa-clock"></i></span>
-        <span class="input-group-text p-1" id="timestamp">TIME</span>
-
-        <span class="input-group-text p-1"><i class="fa-solid fa-compass"></i></span>
-        <span class="input-group-text p-1" id="head">HEADING</span>
+    <div class="input-group p-1">
+        <label class="input-group-text bg-secondary text-light" for="IGSMushrooms">Грибы &#x1F344;</label>
+        <select class="form-select" id="IGSMushrooms">
+            <option value="Белый">Белый</option>
+            <option value="Подберезовик">Подберезовик</option>
+            <option value="Подосиновик">Подосиновик</option>
+            <option value="Лисички">Лисички</option>
+            <option value="Козелок">Козелок</option>
+            <option value="Опята">Опята</option>
+            <option value="Маслята">Маслята</option>
+            <option value="Чернушка">Чернушка</option>
+            <option value="Сыроежка">Сыроежка</option>
+            <option value="Шампиньон">Шампиньон</option>
+        </select>
+        <button type="button" class="btn btn-outline-secondary" onclick="get_choice('mushroom', $('#IGSMushrooms').val());">Save</button>
     </div>
 
-    <div class="input-group p-0 pe-1 m-0">
-        <span class="input-group-text p-1"><i class="fa-solid fa-mountain"></i></span>
-        <span class="input-group-text p-1" id="alt">ALT</span>
-        <span class="input-group-text p-1"><i class="fa-solid fa-plus-minus"></i></span>
-        <span class="input-group-text p-1" id="alt_acc">ALT_ACC</span>
+    <div class="input-group p-1">
+        <label class="input-group-text bg-success text-light" for="IGSPlants">Ягоды &#x1F353;</label>
+        <select class="form-select" id="IGSPlants">
+            <option value="Земляника">Земляника</option>
+            <option value="Черника">Черника</option>
+            <option value="Малина">Малина</option>
+            <option value="Брусника">Брусника</option>
+            <option value="Костяника">Костяника</option>
+            <option value="Клюква">Клюква</option>
+            <option value="Мох">Мох</option>
+            <option value="Ствол">Ствол</option>
+        </select>
+        <button type="button" class="btn btn-outline-success" onclick="get_choice('plant', $('#IGSPlants').val());">Save</button>
     </div>
-</div>
 
-
-<div class="input-group p-1">
-    <label class="input-group-text bg-secondary text-light" for="IGSMushrooms">Грибы &#x1F344;</label>
-    <select class="form-select" id="IGSMushrooms">
-        <option value="Белый">Белый</option>
-        <option value="Подберезовик">Подберезовик</option>
-        <option value="Подосиновик">Подосиновик</option>
-        <option value="Лисички">Лисички</option>
-        <option value="Козелок">Козелок</option>
-        <option value="Опята">Опята</option>
-        <option value="Маслята">Маслята</option>
-        <option value="Чернушка">Чернушка</option>
-        <option value="Сыроежка">Сыроежка</option>
-        <option value="Шампиньон">Шампиньон</option>
-    </select>
-    <button type="button" class="btn btn-outline-secondary" onclick="get_choice('mushroom', $('#IGSMushrooms').val());">Save</button>
-</div>
-
-<div class="input-group p-1">
-    <label class="input-group-text bg-success text-light" for="IGSPlants">Ягоды &#x1F353;</label>
-    <select class="form-select" id="IGSPlants">
-        <option value="Земляника">Земляника</option>
-        <option value="Черника">Черника</option>
-        <option value="Малина">Малина</option>
-        <option value="Брусника">Брусника</option>
-        <option value="Костяника">Костяника</option>
-        <option value="Клюква">Клюква</option>
-        <option value="Мох">Мох</option>
-        <option value="Ствол">Ствол</option>
-    </select>
-    <button type="button" class="btn btn-outline-success" onclick="get_choice('plant', $('#IGSPlants').val());">Save</button>
-</div>
-
-<div class="input-group p-1">
-    <label class="input-group-text bg-warning text-light" for="IGSOther">Другое &#x1F332;</label>
-    <input type="text" class="form-control" id="found_other_name">
-    <button type="button" class="btn btn-outline-danger" onclick="document.getElementById('found_other_name').value='';"><i class="fa-solid fa-xmark"></i></button>
-    <button type="button" class="btn btn-outline-warning" onclick="get_choice('other', $('#found_other_name').val());">Save</button>
-</div>
-
-<center>
-    <textarea class="p-1" id="found_log" style="width: 98%; resize: none;" rows="13" readonly></textarea>
-    <textarea class="p-1" id="last_error" style="width: 98%; resize: none; background: #fee;" rows="1" readonly></textarea>
-</center>
-
-<div class="d-flex justify-content-around p-1">
-    <button type="button" class="btn btn-primary" onclick="download_json();">Save JSON</button>
-    <button type="button" class="btn btn-success" onclick="download_gpx();">Save GPX</button>
-    <button type="button" class="btn btn-warning" onclick="clear_last();">Clear last</button>
-    <button type="button" class="btn btn-danger" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false">
-    Clear all
-  </button>
-</div>
-
-<div class="collapse" id="collapseExample">
-    <div class="d-flex justify-content-center p-2">
-        <button type="button" class="btn btn-danger" onclick="clear_all();document.getElementById('collapseExample').classList.toggle('show');">Really clear all</button>
+    <div class="input-group p-1">
+        <label class="input-group-text bg-warning text-light" for="IGSOther">Другое &#x1F332;</label>
+        <input type="text" class="form-control" id="found_other_name">
+        <button type="button" class="btn btn-outline-danger" onclick="document.getElementById('found_other_name').value='';"><i class="fa-solid fa-xmark"></i></button>
+        <button type="button" class="btn btn-outline-warning" onclick="get_choice('other', $('#found_other_name').val());">Save</button>
     </div>
-</div>
 
-<!-- -------------------------------------------------------------------------- -->
+    <center>
+        <textarea class="p-1" id="found_log" style="width: 98%; resize: none;" rows="13" readonly></textarea>
+        <textarea class="p-1" id="last_error" style="width: 98%; resize: none; background: #fee;" rows="1" readonly></textarea>
+    </center>
 
-<!-- <script type="text/javascript" src="js/found_items.js"></script> -->
-<script type="text/javascript">
-    var tzoffset = (new Date()).getTimezoneOffset() * 60000;
-    var pos_info = {};
+    <div class="d-flex justify-content-around p-1">
+        <button type="button" class="btn btn-primary" onclick="download_json();">Save JSON</button>
+        <button type="button" class="btn btn-success" onclick="download_gpx();">Save GPX</button>
+        <button type="button" class="btn btn-warning" onclick="clear_last();">Clear last</button>
+        <button type="button" class="btn btn-danger" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false">
+        Clear all
+      </button>
+    </div>
 
-    // Helpers
-    function format_time(s) {
-        return new Date(s - tzoffset).toISOString().slice(-13, -5);
-    }
-
-    function format_number(x, prec) {
-        try {
-            return x.toFixed(prec);
-        } catch (error) {
-            return "&mdash;"
-        }
-    }
-
-    function download(filename, text) {
-        // https://stackoverflow.com/questions/3665115/how-to-create-a-file-in-memory-for-user-to-download-but-not-through-server
-        var element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-        element.setAttribute('download', filename);
-
-        element.style.display = 'none';
-        document.body.appendChild(element);
-
-        element.click();
-
-        document.body.removeChild(element);
-    }
-
-    // Update top of screen
-    function update_geoinfo() {
-        $("span#timestamp").html(format_time(window.pos_info.timestamp));
-        $("span#lat").html(window.pos_info.lat.toString());
-        $("span#long").html(window.pos_info.long.toString());
-        $("span#pos_acc").html(format_number(window.pos_info.acc, 2) + ' м');
-        $("span#alt").html(format_number(window.pos_info.alt, 1));
-        $("span#alt_acc").html(format_number(window.pos_info.alt_acc, 1) + ' м');
-        $("span#head").html(format_number(window.pos_info.head, 0) + '°');
-        $("span#speed").html(format_number(window.pos_info.speed, 1) + ' м/с');
-    }
-
-    // Update textarea
-    function update_found_log() {
-        var history = JSON.parse(localStorage.getItem("MGPSHistory"));
-
-        var log = new Array();
-        for (let i = 0; i < history.length; i++) {
-            var point = history[i];
-            log.push(`${i+1}: ${point.title} в ${new Date(point.timestamp_real).toLocaleTimeString()}`);
-        }
-
-        $('#found_log').val(log.reverse().join('\n'));
-        // $('#found_log').scrollTop = $('#found_log').scrollHeight;
-    }
-
-    // Handle user choice
-    function get_choice(cat, name) {
-        var history = localStorage.getItem("MGPSHistory");
-        if (history === null) {
-            history = new Array();
-        }
-        else {
-            history = JSON.parse(history);
-        }
-
-        date = new Date();
-
-        var entry = {
-            category: cat,
-            title: name,
-
-            latitude: window.pos_info.lat,
-            longitude: window.pos_info.long,
-            accuracy: window.pos_info.acc,
-            altitude: window.pos_info.alt,
-            altaccurary: window.pos_info.alt_acc,
-            heading: window.pos_info.head,
-            speed: window.pos_info.speed,
-
-            timestamp_real: date.getTime(),
-            timestamp_gps: window.pos_info.timestamp,
-
-            isotime_real: date.getTime(),
-
-            datetime_real: date.toString(),
-            datetime_gps: new Date(window.pos_info.timestamp).toString(),
-        };
-
-        history.push(entry);
-        localStorage.setItem("MGPSHistory", JSON.stringify(history));
-        update_found_log();
-    }
-
-    // Download files
-    function download_json() {
-        var filename = `MushroomGPS_${new Date().toISOString().replaceAll(':','-')}.json`
-        var history = localStorage.getItem("MGPSHistory");
-        var jsonstring = JSON.stringify(JSON.parse(history), null, 2);
-        download(filename, jsonstring);
-    }
-
-    function download_gpx() {
-        var head = `\
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<gpx version="1.1" creator="MushroomGPS" xmlns="http://www.topografix.com/GPX/1/1" xmlns:osmand="https://osmand.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
-<metadata><name>MushroomGPS ${new Date().toISOString()}</name><author>MushroomGPS</author></metadata>\n`;
-
-        var tail = `\n\n</gpx>`
-
-        var history = JSON.parse(localStorage.getItem("MGPSHistory"));
-        var waypoints = new Array();
-        for (point of history)
-        {
-            var isotime_real = new Date(point.timestamp_real).toISOString();
-
-            waypoints.push(`
-<wpt lat="${point.latitude}" lon="${point.longitude}">
-<ele>${point.altitude}</ele>
-<name>${point.title}</name>
-<time>${isotime_real}</time>
-<desc>category=${point.category}, date=${isotime_real}</desc>
-<hdop>${point.accuracy}</hdop>
-<extensions>
-  <osmand:color></osmand:color>
-  <osmand:icon></osmand:icon>
-  <category>${point.category}</category>
-</extensions>
-</wpt>`);
-        }
-
-        var wpts = waypoints.join('\n\n');
-
-        var filename = `MushroomGPS_${new Date().toISOString().replaceAll(':','-')}.gpx`
-        download(filename, head + wpts + tail);
-    }
-
-    // Manage storage
-    function clear_last() {
-        var history = JSON.parse(localStorage.getItem("MGPSHistory"));
-        history.pop();
-        localStorage.setItem("MGPSHistory", JSON.stringify(history));
-        update_found_log();
-    }
-
-    function clear_all() {
-        localStorage.setItem("MGPSHistory", JSON.stringify(new Array()));
-        update_found_log();
-    }
-
-    /////////////////
-
-    var geo_options = {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 0,
-    };
-
-    // Put geo information into global variable
-    function geo_success(pos) {
-        const crd = pos.coords;
-
-        window.pos_info.timestamp = pos.timestamp;
-        window.pos_info.lat = crd.latitude;
-        window.pos_info.long = crd.longitude;
-        window.pos_info.acc = crd.accuracy;
-        window.pos_info.alt = crd.altitude;
-        window.pos_info.alt_acc = crd.altitudeAccuracy;
-        window.pos_info.head = crd.heading;
-        window.pos_info.speed = crd.speed;
-    }
-
-    function geo_error(err) {
-        // window.alert(`ERROR(${err.code}): ${err.message}`);
-        $('#last_error').html(`${strftime('%X')}: ERROR(${err.code}): ${err.message}`);
-    }
-
-    if (navigator.geolocation) {
-        var geowatchID = navigator.geolocation.watchPosition(geo_success, geo_error, geo_options);
-    }
-
-    function time_loop() {
-        update_geoinfo();
-    }
-
-    var intervalID = setInterval(time_loop, 3000);
-
-    ////////////////////
+    <div class="collapse" id="collapseExample">
+        <div class="d-flex justify-content-center p-2">
+            <button type="button" class="btn btn-danger" onclick="clear_all();document.getElementById('collapseExample').classList.toggle('show');">Really clear all</button>
+        </div>
+    </div>
 
 
-</script>
+    <script type="text/javascript" src="js/geoPosition.js"></script>
 
+    <script type="text/javascript" src="js/mgpsjs.js"></script>
 
     <!-- <script src="js/popper.min.js"></script> -->
     <script src="js/bootstrap.min.js"></script>
