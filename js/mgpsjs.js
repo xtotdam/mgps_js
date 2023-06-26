@@ -31,7 +31,7 @@ function download(filename, text) {
 // Update top of screen
 function update_geoinfo() {
     // $("span#timestamp").html(format_time(window.pos_info.timestamp));
-    $("span#timestamp").html(new Date(pos_info.timestamp).toLocaleTimeString());
+    // $("span#timestamp").html(new Date(pos_info.timestamp).toLocaleTimeString());
     $("span#lat").html(pos_info.lat.toString());
     $("span#long").html(pos_info.long.toString());
     $("span#pos_acc").html(format_number(pos_info.acc, 2) + ' м');
